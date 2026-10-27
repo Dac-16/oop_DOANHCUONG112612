@@ -10,8 +10,31 @@ private:
     double phiDoXe;
     bool dangChiemCho;
 public:
-    Xe();
-    Xe(int ma, const stirng& loai, int gio, int thoiLuong);
+    Xe(){
+        maXe = 0;
+        loaiXe = "";
+        gioVao = 0;
+        thoiGianDo = 0;
+        phiDoXe = 0.0;
+        dangChiemCho = false;
+    }
+    Xe(int ma, const stirng& loai, int gio, int thoiLuong){
+        maXe = ma;
+        loaiXe = chuanHoaLoaiXe(loai);
+        if (gio >= 0 && gio <= 23) {
+            gioVao = gio;
+        } else {
+            gioVao = 0;
+        }
+        if (thoiLuong >= 1 && thoiLuong <= 23) {
+            thoiGianDo = thoiLuong;
+        } else {
+            thoiGianDo = 1;
+        }
+        phiDoXe = 0.0;
+        dangChiemCho = true;
+        tinhPhiDoXe();
+    }
     int layMaXe() const;
     string layLoaiXe() const;
     int layGioVao() const;
