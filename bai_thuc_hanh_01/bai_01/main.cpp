@@ -35,18 +35,47 @@ public:
         dangChiemCho = true;
         tinhPhiDoXe();
     }
-    int layMaXe() const;
-    string layLoaiXe() const;
-    int layGioVao() const;
-    int layThoiGianDo() const;
-    double layPhiDoXe() const;
-    bool layDangChiemCho() const;
-    void ganMaXe(int ma);
-    void ganLoaiXe(const string& loai);
-    void ganGioVao(int gio);
-    void ganThoiLuongDo(int thoiLuong);
-    void ganPhiDoXe(double phi);
-    void ganDangChiemCho(bool trangThai);
+    int layMaXe() const {
+        return maXe; 
+        }
+    string layLoaiXe() const {
+        return loaiXe;
+        }
+    int layGioVao() const {
+        return gioVao;
+        }
+    int layThoiGianDo() const {
+        return thoiGianDo;
+        }
+    double layPhiDoXe() const {
+        return phiDoXe;
+        }
+    bool layDangChiemCho() const {
+        return dangChiemCho;
+        }
+    void ganMaXe(int ma){
+        maXe=ma;
+    }
+
+    void ganLoaiXe(const string& loai) { 
+        loaiXe = chuanHoaLoaiXe(loai); 
+        tinhPhiDoXe();
+    }
+    void ganGioVao(int gio) { 
+        gioVao = (gio >= 0 && gio <= 23) ? gio : 0; 
+        tinhPhiDoXe();
+    }
+    void ganThoiLuongDo(int thoiLuong) { 
+        thoiGianDo = (thoiLuong >= 1 && thoiLuong <= 23) ? thoiLuong : 1; 
+        tinhPhiDoXe();
+    }
+    void ganPhiDoXe(double phi) {
+        phiDoXe = phi;
+    }
+    void ganDangChiemCho(bool trangThai) {
+        dangChiemCho = trangThai; 
+    }
+
     static string chuanHoaLoaiXe(const string& loai);
     static bool laLoaiXeHopLe(const string& loai);
     void tinhPhiDoXe();
