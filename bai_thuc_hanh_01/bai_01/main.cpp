@@ -76,8 +76,20 @@ public:
         dangChiemCho = trangThai; 
     }
 
-    static string chuanHoaLoaiXe(const string& loai);
-    static bool laLoaiXeHopLe(const string& loai);
+    static string chuanHoaLoaiXe(const string& loai) {
+        string ten = loai;
+        for (int i = 0; i < ten.length(); ++i) {
+            ten[i] = tolower(ten[i]);
+        }
+        if (ten == "car") return "Car";
+        if (ten == "motorcycle") return "Motorcycle";
+        if (ten == "bicycle") return "Bicycle";
+        return "";
+    }
+     static bool laLoaiXeHopLe(const string& loai) {
+        string ch = chuanHoaLoaiXe(loai);
+        return (ch == "Car" || ch == "Motorcycle" || ch == "Bicycle");
+    }
     void tinhPhiDoXe();
     void hienThi() const;
 };
