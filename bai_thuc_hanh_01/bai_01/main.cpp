@@ -1,179 +1,99 @@
 #include <iostream>
-#include<string>
+#include <string>
+#include <iomanip>
+
 using namespace std;
-class Xe{
-private:
-    int maXe;
-    string loaiXe;
-    int gioVao;
-    int thoiGianDo;
-    double phiDoXe;
-    bool dangChiemCho;
-public:
-    Xe(){
-        maXe = 0;
-        loaiXe = "";
-        gioVao = 0;
-        thoiGianDo = 0;
-        phiDoXe = 0.0;
-        dangChiemCho = false;
-    }
-    Xe(int ma, const stirng& loai, int gio, int thoiLuong){
-        maXe = ma;
-        loaiXe = chuanHoaLoaiXe(loai);
-        if (gio >= 0 && gio <= 23) {
-            gioVao = gio;
-        } else {
-            gioVao = 0;
-        }
-        if (thoiLuong >= 1 && thoiLuong <= 23) {
-            thoiGianDo = thoiLuong;
-        } else {
-            thoiGianDo = 1;
-        }
-        phiDoXe = 0.0;
-        dangChiemCho = true;
-        tinhPhiDoXe();
-    }
-    int layMaXe() const {
-        return maXe; 
-        }
-    string layLoaiXe() const {
-        return loaiXe;
-        }
-    int layGioVao() const {
-        return gioVao;
-        }
-    int layThoiGianDo() const {
-        return thoiGianDo;
-        }
-    double layPhiDoXe() const {
-        return phiDoXe;
-        }
-    bool layDangChiemCho() const {
-        return dangChiemCho;
-        }
-    void ganMaXe(int ma){
-        maXe=ma;
-    }
 
-    void ganLoaiXe(const string& loai) { 
-        loaiXe = chuanHoaLoaiXe(loai); 
-        tinhPhiDoXe();
-    }
-    void ganGioVao(int gio) { 
-        gioVao = (gio >= 0 && gio <= 23) ? gio : 0; 
-        tinhPhiDoXe();
-    }
-    void ganThoiLuongDo(int thoiLuong) { 
-        thoiGianDo = (thoiLuong >= 1 && thoiLuong <= 23) ? thoiLuong : 1; 
-        tinhPhiDoXe();
-    }
-    void ganPhiDoXe(double phi) {
-        phiDoXe = phi;
-    }
-    void ganDangChiemCho(bool trangThai) {
-        dangChiemCho = trangThai; 
-    }
-
-    static string chuanHoaLoaiXe(const string& loai) {
-        string ten = loai;
-        for (int i = 0; i < ten.length(); ++i) {
-            ten[i] = tolower(ten[i]);
-        }
-        if (ten == "car") return "Car";
-        if (ten == "motorcycle") return "Motorcycle";
-        if (ten == "bicycle") return "Bicycle";
-        return "";
-    }
-     static bool laLoaiXeHopLe(const string& loai) {
-        string ch = chuanHoaLoaiXe(loai);
-        return (ch == "Car" || ch == "Motorcycle" || ch == "Bicycle");
-    }
-    void tinhPhiDoXe();
-    void hienThi() const;
-};
-class BaiDoXe{
+class phuong_tien {
 private:
-    int maBai;
-    char kichThuoc;
-    Xe xe1, xe2, xe3;
-    bool coXe1, coXe2, coXe3;
+    int ma_xe;
+    string loai_xe;
+    int gio_vao;
+    int tg_do;
+    
 public:
-    BaiDoXe(){
-    maBai = 0;
-    kichThuoc = 'S';
-    coXe1 = false;
-    coXe2 = false;
-    coXe3 = false;
-}
-    BaiDoXe(int ma, char size){
-    maBai = ma;
-    kichThuoc = size;
-    coXe1 = false;
-    coXe2 = false;
-    coXe3 = false;
-}
-    int layMaBai() const { 
-        return maBai; 
-}
-    char layKichThuoc() const {
-        return kichThuoc; 
-}
-    int laySucChuaToiDa() const {
-        if (kichThuoc == 'S') return 1;
-        if (kichThuoc == 'M') return 2;
-        return 3;
-}
-    int laySoLuongXeHienTai() const {
-        int so = 0;
-        if (coXe1) so++;
-        if (coXe2) so++;
-        if (coXe3) so++;
-        return so;
-    }
-    bool themXe(const Xe& x) {
-        int max = laySucChuaToiDa();
-        
-        if (!coXe1 && max >= 1) {
-            xe1 = x;
-            coXe1 = true;
-            return true;
-        }
-        if (!coXe2 && max >= 2) {
-            xe2 = x;
-            coXe2 = true;
-            return true;
-        }
-        if (!coXe3 && max >= 3) {
-            xe3 = x;
-            coXe3 = true;
-            return true;
-        }
-        return false;
-    }
-    bool xoaXe(int maXe) {
-        if (coXe1 && xe1.layMaXe() == maXe) { 
-            coXe1 = false; 
-            return true; 
-        }
-        if (coXe2 && xe2.layMaXe() == maXe) {
-            coXe2 = false; 
-            return true; 
-        }
-        if (coXe3 && xe3.layMaXe() == maXe) {
-            coXe3 = false;
-            return true; 
-        }
-        return false;
-    }
-    void hienThiThongTinBai() const {
-        cout << "Bai do ID: " << maBai 
-             << " - Kich thuoc: " << kichThuoc 
-             << " - So xe hien tai: " << laySoLuongXeHienTai() 
-             << "/" << laySucChuaToiDa() << endl;
-        if (coXe1) xe1.hienThi();
-        if (coXe2) xe2.hienThi();
-        if (coXe3) xe3.hienThi();
-    }
+    phuong_tien();
+    
+    phuong_tien(int ma, string loai, int gio, int tg);
+    
+    int lay_ma_xe() const;
+    string lay_loai_xe() const;
+    double tinh_phi() const;
+    void hien_thi() const;
 };
+phuong_tien::phuong_tien(){
+	ma_xe = 0;
+	loai_xe = "";
+	gio_vao = 0;
+	tg_do = 0;
+}
+phuong_tien::phuong_tien(int ma, string loai, int gio, int tg){
+	ma_xe = ma;
+	loai_xe = loai;
+	gio_vao = gio;
+	tg_do = tg;
+}
+int phuong_tien::lay_ma_xe() const{
+	return ma_xe;
+}
+string phuong_tien::lay_loai_xe() const{
+	return loai_xe;
+}
+double phuong_tien::tinh_phi() const{
+	double dongia = 0;
+	if(loai_xe == "Car"){
+		dongia = 6;
+	}
+	if(loai_xe == "Motocycle"){
+		dongia = 4;
+	}
+	if(loai_xe == "Bicycle"){
+		dongia = 2;
+	}
+	bool giocaodiem = (giovao>=6 && giovao<=9) || (giovao >= 15 && giovao <=18);
+	double heso = 0.95;
+	if(giocaodiem) heso == 1.3;
+	int giodau = thoigiando;
+	int giosau = 0;
+	if(thoigiando>2){
+		giodau = 2;
+		giosau = thoigiando - 2;
+	}
+	phidoxe = giodau*dongia*heso + giosau * dongia * 0.9;
+}
+void phuong_tien::hien_thi() {
+        if (!dangChiemCho) return;
+        cout << "   Ma xe: " << ma_xe 
+             << " | Loai xe: " << loai_xe 
+             << " | Gio vao: " << gio_vao
+             << " | Thoi gian do: " << tg_do
+             << " | Phi do: " << fixed << setprecision(2) << phidoxe << " VNĐ" << endl;
+}
+
+class bai_xe{
+	private:
+		int ma_bai;
+		char kich_thuoc;
+		phuong_tien pt1, pt2, pt3;
+		bool co1, co2, co3;
+	public:
+		bai_xe();
+		bai_xe(int ma, char kt);
+		int lay_ma() const;
+		bool them(phuong_tien v);
+		bool xoa(int ma_xe);
+		bool chua(int ma_xe) const;
+		void hien_thi() const;
+		bool co_loai(string loai, int& dem, double& tong) const;
+};
+bai_xe::bai_xe() {
+	ma_bai = 0;
+	kich_thuoc=0;
+}
+bai_xe::bai_xe(int ma, char kt){
+	ma_bai=ma;
+	kich_thuoc=kt;
+} 
+int bai_xe::lay_ma() const{
+	return ma_bai;
+}
